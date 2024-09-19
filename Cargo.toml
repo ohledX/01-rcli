@@ -8,4 +8,3 @@ license = "MIT"
 
 [dependencies]
 clap = "4.5.16"
-tokio = { version = "1.40.0", features = ["full"] }
