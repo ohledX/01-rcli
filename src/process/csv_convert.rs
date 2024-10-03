@@ -3,7 +3,7 @@ use std::fs;
 use csv::Reader;
 use serde_json::Value;
 
-use crate::{opts::CsvOpts, OutPutFormat};
+use crate::cli::{CsvOpts, OutPutFormat};
 
 pub fn process_csv(csv_opts: &CsvOpts) -> anyhow::Result<()> {
     let file_path = csv_opts.input.clone();
@@ -18,6 +18,7 @@ pub fn process_csv(csv_opts: &CsvOpts) -> anyhow::Result<()> {
         })
         .collect::<Value>();
 
+    //设置输出文件名
     let out_put = if let Some(output) = &csv_opts.output {
         output.clone()
     } else {

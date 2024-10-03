@@ -1,20 +1,9 @@
 use core::fmt;
-use std::{path::Path, str::FromStr};
+use std::str::FromStr;
 
 use clap::Parser;
 
-#[derive(Debug, Parser)]
-#[command(version, about)]
-pub struct Opts {
-    #[command(subcommand)]
-    pub cmd: Subcommand,
-}
-
-#[derive(Debug, Parser)]
-pub enum Subcommand {
-    #[command(name = "csv", about = "show Csv or convert Csv to other format")]
-    Csv(CsvOpts),
-}
+use super::check_file_exists;
 
 #[derive(Debug, Clone, Copy)]
 pub enum OutPutFormat {
@@ -49,14 +38,6 @@ fn check_extension(filename: &str) -> Result<String, String> {
         Err("unsupported file extension".into())
     } else {
         check_file_exists(filename)
-    }
-}
-
-fn check_file_exists(filename: &str) -> Result<String, String> {
-    if !Path::new(filename).exists() {
-        Err("specified file not exists".into())
-    } else {
-        Ok(filename.into())
     }
 }
 
